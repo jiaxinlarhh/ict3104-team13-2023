@@ -1,5 +1,6 @@
 <div align="center">
 <h2><font color="red"> 🕺 Follow Your Pose (ver. ict3104-team13-2023) 💃 </font></center> <br> <center>Pose-Guided Text-to-Video Generation using Pose-Free Videos</h2>
+</div>
 
 ## 💃💃💃 Abstract
 
