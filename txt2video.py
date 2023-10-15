@@ -175,6 +175,10 @@ def main(
         save_videos_grid(samples, save_path)
         logger.info(f"Saved samples to {save_path}")
 
+        # Save the 'save_path' to the file
+        with open(f"{output_dir}/inference/save_path.txt", "w") as f:
+            f.write(save_path)
+
 
 
 if __name__ == "__main__":
