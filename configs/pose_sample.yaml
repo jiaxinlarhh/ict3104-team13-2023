@@ -4,19 +4,26 @@ output_dir: "output"
 validation_data:
     prompts:
         - "Iron man on the beach"
-        - "Stormtrooper on the sea"
-        - "Astronaut on the beach"
-    video_length: 5
+    video_length: 25    # Video Length can be increased to quality of result GIF. 
+                        # However, 25 is the limit for colab's default T4 GPU of 16 GPU
+                        # With A100 GPU 40GB, 100 is the limit
     width: 512
     height: 512
-    num_inference_steps: 50
-    guidance_scale: 12.5
+    num_inference_steps: 50 # results are better the more num_inference_steps, 
+                            # however the more steps, the longer the generation takes.
+                            # with trial and error, any >500 num_inference_steps results in no tangible improvement
+                                
+    guidance_scale: 12.5 
+        # Value can be between 7.5 - 8.5 as recommended by stable diffusion documentation
+        # guidance_scale is a way to increase the adherence to the conditional signal 
+        # that guides the generation (text, in this case) as well as overall sample quality
+
     use_inv_latent: False
-    num_inv_steps: 50
+    num_inv_steps: 50 # changing this variable results in no tangible improvement in result gif
     dataset_set: "val"
 
 train_batch_size: 1
-validation_steps: 100
+validation_steps: 100 # changing this variable results in no tangible improvement in result gif
 
 resume_from_checkpoint: ./checkpoints/followyourpose_checkpoint-1000
 

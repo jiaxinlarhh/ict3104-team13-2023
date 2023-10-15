@@ -11,8 +11,6 @@
 
 *.pth
 
-*.jpg
-
 *.og
 
 /logs
