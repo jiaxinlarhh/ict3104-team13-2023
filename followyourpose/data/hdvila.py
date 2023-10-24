@@ -50,13 +50,12 @@ class HDVilaDataset(Dataset):
             pass
         print('dataset rank:', global_rank, ' / ',all_rank, ' ')
         
-        self.data_dir = 'Your dataset path'
+        self.data_dir = "/content/ict3104-team13-2023/data_folder/stickman/"
         if dataset_set=='train':
             self.text_name = 'caption_rm2048_train.csv'
         else:
             self.text_name = 'caption_2048_val_new.csv'
-        self.meta_path = os.path.join(self.data_dir, self.text_name)
-
+        self.meta_path = os.path.abspath(os.path.join(self.data_dir, self.text_name))
         
         spatial_transform = 'resize_center_crop'
         resolution=width
@@ -114,7 +113,7 @@ class HDVilaDataset(Dataset):
                         break
                     last_clip_id = row['clip_id']
                     if count % self.all_rank == self.global_rank:
-                        self.metadata.append([('%02d'%int(row['part_id']))+row['clip_id']]) 
+                        self.metadata.append([row['clip_id']]) 
                         self.metadata[-1].append([row['caption']])
                 else:
                     if count % self.all_rank == self.global_rank:
@@ -124,9 +123,8 @@ class HDVilaDataset(Dataset):
 
     
     def _get_video_path(self, sample):
-        part_id = int(sample[0][:2])
-        clip_id = sample[0][2:]
-        video_path = os.path.join(self.data_dir,'part_%d' % part_id, 'video_clips', clip_id)
+        clip_id = sample[0]
+        video_path = os.path.join(self.data_dir,'%s.mp4' % clip_id)
         return video_path
     
     def __getitem__(self, index):
@@ -199,15 +197,15 @@ class HDVilaDataset(Dataset):
             fps_clip = self.fps_max
         
         # caption index
-        middle_idx = (rand_idx + self.video_length /2 )*fs
-        big_cap_idx = (middle_idx // 64 +1) *64
-        small_cap_idx = (middle_idx // 64) *64
-        if big_cap_idx >= allf or ((big_cap_idx-middle_idx) >= (small_cap_idx-middle_idx)):
-            cap_idx = small_cap_idx
-        else:
-            cap_idx = big_cap_idx
+        # middle_idx = (rand_idx + self.video_length /2 )*fs
+        # big_cap_idx = (middle_idx // 64 +1) *64
+        # small_cap_idx = (middle_idx // 64) *64
+        # if big_cap_idx >= allf or ((big_cap_idx-middle_idx) >= (small_cap_idx-middle_idx)):
+        #     cap_idx = small_cap_idx
+        # else:
+        #     cap_idx = big_cap_idx
         # print(middle_idx, small_cap_idx, big_cap_idx,cap_idx)
-        caption = sample[1][int(cap_idx//64)]
+        caption = sample[1][0]
 
         frames = frames.permute(1,0,2,3)
         skeleton_final = torch.zeros_like(frames).byte()
@@ -220,4 +218,3 @@ class HDVilaDataset(Dataset):
     def __len__(self):
         return len(self.metadata)
         # return 1
-
