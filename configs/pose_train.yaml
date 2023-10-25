@@ -13,10 +13,7 @@ train_data:
 
 validation_data:
   prompts:
-    - "A Iron man on the beach"
-    - "A Spider man on the snow"
-    - "A Superman on the street"
-    - "A boy on the forest"
+    - "A man is unbuttoning his jacket and sitting down on the floor"
   video_length: 24
   width: 512
   height: 512
@@ -29,15 +26,15 @@ validation_data:
 
 learning_rate: 3e-5
 train_batch_size: 1
-max_train_steps: 5000
-checkpointing_steps: 1000
+max_train_steps: 100
+checkpointing_steps: 100
 validation_steps: 100
 trainable_modules:
   - "attn1.to_q"
   - "attn2.to_q"
   - "attn_temp"
   - "conv_temporal"
-skeleton_path: './pose_example/vis_kun_pose2.mov'
+skeleton_path: './data_folder/stickman/0RJKT.mp4'
 
 
 seed: 33
