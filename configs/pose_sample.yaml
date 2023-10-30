@@ -4,7 +4,7 @@ output_dir: "output"
 validation_data:
     prompts:
         - "Iron man on the beach"
-    video_length: 25    # Video Length can be increased to quality of result GIF. 
+    video_length: 20    # Video Length can be increased to quality of result GIF. 
                         # However, 25 is the limit for colab's default T4 GPU of 16 GPU
                         # With A100 GPU 40GB, 100 is the limit
     width: 512
