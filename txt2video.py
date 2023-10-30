@@ -106,7 +106,8 @@ def main(
             raise ValueError("xformers is not available. Make sure it is installed correctly")
 
     if gradient_checkpointing:
-        unet.enable_gradient_checkpointing()   
+        unet.enable_gradient_checkpointing()
+
 
     # Get the validation pipeline
     validation_pipeline = FollowYourPosePipeline(
@@ -185,7 +186,7 @@ def main(
 
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str)
     parser.add_argument("--skeleton_path", type=str)
